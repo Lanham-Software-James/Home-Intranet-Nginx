@@ -7,6 +7,7 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./SSL:/etc/nginx/certs:ro
     networks:
       - home-intranet-nginx
 
