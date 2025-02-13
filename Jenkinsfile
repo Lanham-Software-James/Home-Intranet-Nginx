@@ -3,6 +3,7 @@ pipeline {
     environment {
         SERVER_IP = '192.168.0.39'
         DEPLOY_DIR = '/opt/stacks/nginx'
+        SCRIPTS_DIR = '/opt/stacks/scripts'
         CREDENTIALS_ID = 'home-intranet-server-ssh'
     }
     stages {
@@ -26,9 +27,10 @@ pipeline {
                 sshagent(credentials: [CREDENTIALS_ID]) {
                     sh """
                         ssh -o StrictHostKeyChecking=no ${SERVER_IP} \
-                        "cd ${DEPLOY_DIR} && \
-                        docker compose down && \
-                        docker compose up -d"
+                        "cd ${SCRIPTS_DIR} && \
+                        sh shut-down.sh && \
+                        sh start-up.sh && \
+                        sh restart.sh"
                     """
                 }
             }
