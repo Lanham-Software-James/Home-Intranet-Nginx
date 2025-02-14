@@ -27,9 +27,10 @@ pipeline {
                 sshagent(credentials: [CREDENTIALS_ID]) {
                     sh """
                         ssh -o StrictHostKeyChecking=no ${SERVER_IP} \
-                        "cd ${SCRIPTS_DIR} && \
-                        sh shut-down.sh && \
-                        sh start-up.sh && \
+                        "cd ${DEPLOY_DIR} && \
+                        docker compose down && \
+                        docker compose up -d && \
+                        cd ${SCRIPTS_DIR} && \
                         sh restart.sh"
                     """
                 }
