@@ -1,7 +1,7 @@
 services:
   nginx:
     image: jwilder/nginx-proxy
-    container_name: home-intranet-nginx
+    container_name: nginx
     ports:
       - "80:80"
       - "443:443"
